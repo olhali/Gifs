@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import MainPage from "./components/MainPage";
+import {Route, Switch} from "react-router-dom";
+import Authorization from "./components/Authorization";
+import HistoryPage from "./components/HistoryPage";
 
-function App() {
+const App = () => {
+    const [history, setHistory] = useState([]);
+    const [count, setCount] = useState(0);
+
+    const addToHistory = (search) => {
+        if (count > 9) {
+            history.shift();
+            history.push(search);
+            setHistory(history);
+        } else {
+            history.push(search);
+            setHistory(history);
+        }
+        setCount(count+1)
+    };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+      <Switch>
+          <Route path={['/', '/authorization']} exact component={Authorization}/>
+          <Route path={['/main_page', '/main_page/:item']} exact render={() => <MainPage addToHistory={addToHistory}/>}/>}/>
+          <Route path='/history_page' render={() => <div><HistoryPage history={history}/></div>}/>
+          <Route component={Authorization}/>
+      </Switch>
+  )
+};
 
 export default App;

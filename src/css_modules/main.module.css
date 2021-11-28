@@ -1,0 +1,58 @@
+.divDecor {
+    margin-top: 1.5em;
+}
+
+.inputDecor {
+    display: inline;
+    height: 2.5em;
+    width: 18em;
+    border: 4px solid rgb(250, 155, 97);
+    outline: none;
+}
+
+.inputDecor:hover,
+.inputDecor:active,
+.inputDecor:focus {
+    border: 4px solid rgb(67, 170, 124);
+}
+
+.btnDecor {
+    height: 3.5em;
+    border: 4px solid rgb(255, 136, 100);
+    background-color: rgb(250, 155, 97);
+    border-radius: 10%;
+    outline: none;
+    margin-left: 0.5em;
+    color: white;
+}
+
+.btnDecor:hover,
+.btnDecor:active,
+.btnDecor:focus {
+    background-color: rgb(67, 170, 124);
+    border: 4px solid rgb(67, 150, 124);
+}
+
+.linkDecor {
+    color: rgb(250, 155, 97);
+    font-weight: 900;
+}
+
+.linkDecor:hover,
+.linkDecor:active {
+    color: rgb(250, 155, 97);
+    background-color: blanchedalmond;
+}
+
+.linkDecor:focus {
+    color: white;
+    background-color: rgb(250, 155, 97);
+    font-weight: bold;
+}
+
+.message {
+    color: orangered;
+    font-weight: bolder;
+    text-shadow: 0.2em 0.1em 0.3em lightgray;
+
+}

@@ -1,0 +1,19 @@
+.label {
+    padding-right: 0.5em;
+    margin-top: 1em;
+    width: 30%;
+    text-align: left;
+    font-weight: bold;
+    color: rgb(250, 132, 53);
+    text-shadow: 0.2em 0.1em 0.3em rgb(255, 192, 130);
+}
+
+.no_frame {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: rgb(67, 170, 124);
+    outline: none;
+    width: 70%;
+    background-color: lightyellow;
+}

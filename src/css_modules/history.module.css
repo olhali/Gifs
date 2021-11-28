@@ -1,0 +1,10 @@
+.decor {
+    display: flex;
+    justify-content: center;
+    background-color: blanchedalmond;
+    margin-top: 1em;
+    list-style-type: none;
+    font-weight: bold;
+}
+
+
