@@ -25,7 +25,7 @@ const App = () => {
       <Switch>
           <Route path={['/', '/authorization']} exact component={Authorization}/>
           <Route path={['/main_page', '/main_page/:item']} exact render={() => <MainPage addToHistory={addToHistory}/>}/>}/>
-          <Route path='/history_page' render={() => <div><HistoryPage history={history}/></div>}/>
+          <Route path='/history_page' render={() => <HistoryPage history={history}/>}/>
           <Route component={Authorization}/>
       </Switch>
   )
