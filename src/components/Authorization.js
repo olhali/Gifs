@@ -111,6 +111,7 @@ const Authorization = (props) => {
             if (dataFromLocalStorage === null || dataFromLocalStorage.password !== password)  {
                 alert("You entered incorrect data. Try again")
             } else {
+                sessionStorage.setItem('session', email);
                 history.push('/main_page')
             }
         } else {
@@ -126,8 +127,9 @@ const Authorization = (props) => {
             if (checkAllFieldsOnTrue() === true) {
                 return;
             }
-            let data = {username: username, userEmail: email, password: password};
+            let data = {username: username, userEmail: email, password: password, history : []};
             localStorage.setItem(email, JSON.stringify(data));
+            sessionStorage.setItem('session', email);
             history.push('/main_page');
         }
     };

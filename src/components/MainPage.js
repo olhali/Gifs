@@ -3,7 +3,7 @@ import style from '../css_modules/main.module.css'
 import {Button, Col, Container, Input, Row} from "reactstrap";
 import {API_Key, URL_Gif} from "../utils/Constants";
 import Gifs from "./Gifs";
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const MainPage = (props) => {
     const limitGifs = 10;
@@ -43,6 +43,8 @@ const MainPage = (props) => {
             .then(response => {
                 if (response.pagination.total_count === 0) {
                     setMessage ('Sorry. No results were found for your search. Тry again');
+                } else {
+                    setMessage('');
                 }
                 setData(response.data);
                 setTotalResults(response.pagination.total_count)
@@ -51,17 +53,29 @@ const MainPage = (props) => {
     };
 
     const clickSearchHandler = () => {
-        props.addToHistory(text);
+        addToHistory(text);
         let url = URL_Gif + '?api_key=' + API_Key + '&q=' + text + '&limit=' + limitGifs + '&offset=' + 0;
         fetchData(url);
     };
 
-    const{item} = useParams();
+    const  addToHistory = (text) =>{
+        let userEmail = sessionStorage.getItem('session');
+        let userData = JSON.parse(localStorage.getItem(userEmail));
+        if(userData.history.length > 9){
+            userData.history.shift();
+            userData.history.push(text);
+        } else{
+            userData.history.push(text);
+        }
+        localStorage.setItem(userEmail, JSON.stringify(userData))
+    };
 
+    let location = useLocation();
+    let searchValue = location.pathname.split('/')[2];
     useEffect(() => {
-        if(item === undefined) return;
-        setText(item);
-        let url = URL_Gif + '?api_key=' + API_Key + '&q=' + item + '&limit=' + limitGifs + '&offset=' + 0;
+        if(searchValue === undefined) return;
+        setText(searchValue);
+        let url = URL_Gif + '?api_key=' + API_Key + '&q=' + searchValue + '&limit=' + limitGifs + '&offset=' + 0;
         fetchData(url);
     }, []);
 

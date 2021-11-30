@@ -1,31 +1,39 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import MainPage from "./components/MainPage";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import Authorization from "./components/Authorization";
 import HistoryPage from "./components/HistoryPage";
 
 const App = () => {
-    const [history, setHistory] = useState([]);
-    const [count, setCount] = useState(0);
 
-    const addToHistory = (search) => {
-        if (count > 9) {
-            history.shift();
-            history.push(search);
-            setHistory(history);
+    const isAuthenticated = () => {
+        if (sessionStorage.getItem('session') !== null){
+            return true;
         } else {
-            history.push(search);
-            setHistory(history);
+            return false;
         }
-        setCount(count+1)
     };
+
+    function PrivateRoute({ children, ...rest }) {
+        return (
+            <Route {...rest} render={() => {
+                return isAuthenticated() === true
+                    ? children
+                    : <Redirect to='/authorization'/>
+            }} />
+        )
+    }
 
   return (
       <Switch>
           <Route path={['/', '/authorization']} exact component={Authorization}/>
-          <Route path={['/main_page', '/main_page/:item']} exact render={() => <MainPage addToHistory={addToHistory}/>}/>}/>
-          <Route path='/history_page' render={() => <HistoryPage history={history}/>}/>
+          <PrivateRoute path={['/main_page', '/main_page/:item']}>
+              <MainPage/>
+          </PrivateRoute>
+          <PrivateRoute path='/history_page'>
+              <HistoryPage/>
+          </PrivateRoute>
           <Route component={Authorization}/>
       </Switch>
   )

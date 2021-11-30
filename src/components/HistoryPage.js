@@ -1,18 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import style from '../css_modules/history.module.css';
 
-const HistoryPage = (props) => {
+const HistoryPage = () => {
+
+    const [history, setHistory] = useState([]);
+
+    useEffect(() => {
+        let userEmail = sessionStorage.getItem('session');
+        let userData = JSON.parse(localStorage.getItem(userEmail));
+        setHistory(userData.history);
+    }, []);
 
     return (
-        <div >
-            {props.history.map((item) => (
-                <li className={style.decor}>
-                    <Link to={`/main_page/${item}`}>
-                        {item}
-                    </Link>
-                </li>
+        <div>
+            {history.map((item) => (
+                <Link to={`/main_page/${item}`} className={style.decor}>
+                    {item}
+                </Link>
             ))}
+            <Link to='/main_page' className={style.back}>B A C K</Link>
         </div>
     );
 };
